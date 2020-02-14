@@ -1,0 +1,21 @@
+image:
+  repository: vlabresearch/dumper
+  tag: 0.0.1
+  pullPolicy: Always
+
+completions: 1
+parallelism: 1
+backoffLimit: 3
+
+schedule: "4 * * * *"
+resources:
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+keySecret: gbv-dumper-keys
+env:
+- name: CHATBASE_HOST
+  value: "gbv-cockroachdb-public.default"
+- name: DUMPER_LOCATION
+  value: "gs://vlab-research-backups"
