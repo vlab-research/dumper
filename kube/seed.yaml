@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gbv-seeder
+  labels:
+    app: gbv-seeder
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: gbv-seeder
+        image: vlabresearch/dumper:0.0.5
+        command:
+        - "/bin/bash"
+        - "/dumper/seed.sh"
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "100Mi"
+        volumeMounts:
+          - name: keys
+            mountPath: /keys
+            readOnly: true
+        env:
+        - name: CHATBASE_HOST
+          value: "gbv-cockroachdb-public"
+        - name: CHATBASE_DATABASE
+          value: "chatroach"
+        - name: DUMPER_LOCATION
+          value: "gs://vlab-research-backups/gbv-india-staging/"
+      volumes:
+        - name: keys
+          secret:
+            secretName: gbv-dumper-keys
