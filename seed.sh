@@ -4,7 +4,7 @@ set -o pipefail
 
 gcloud auth activate-service-account --key-file=/keys/key.json
 
-BACKUP_FILE=$(gsutil ls $DUMPER_LOCATION | sort -k 2 | tail -n 2 | head -1)
+BACKUP_FILE=$(gsutil ls $DUMPER_LOCATION | sort -k 2 | tail -n 1)
 
 gsutil cp $BACKUP_FILE backup.sql
 
