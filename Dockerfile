@@ -1,4 +1,4 @@
-FROM cockroachdb/cockroach
+FROM cockroachdb/cockroach:v20.1.4
 
 # install gsutil for copying to gs://
 RUN mkdir /dumper
