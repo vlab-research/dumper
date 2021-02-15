@@ -15,6 +15,10 @@ gsutil -m cp "$TIMESTAMP".sql.gz $DUMPER_LOCATION
 
 echo "BACKUP COPIED FILE AT $TIMESTAMP."
 
+{
 gsutil ls $DUMPER_LOCATION | grep "$(date --date '-6 day' --iso-8601)" | tail -n +2 | gsutil -m rm -I
+} || {
+  echo "NO OLD FILES FOR CLEANUP"
+}
 
 echo "BACKUP FINISHED."
