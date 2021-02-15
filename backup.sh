@@ -8,7 +8,10 @@ TIMESTAMP=$(date +%Y-%m-%dT%H:%M)
 
 cockroach dump chatroach --insecure --host $CHATBASE_HOST > "$TIMESTAMP".sql
 
-gsutil cp "$TIMESTAMP".sql $DUMPER_LOCATION
+echo "DATABASE DUMPED."
+
+gzip "$TIMESTAMP".sql
+gsutil cp "$TIMESTAMP".sql.gz $DUMPER_LOCATION
 
 echo "BACKUP COPIED FILE AT $TIMESTAMP."
 
