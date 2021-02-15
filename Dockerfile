@@ -15,4 +15,6 @@ ENV PATH=/dumper/google-cloud-sdk/bin:/cockroach:$PATH
 
 ADD . .
 
-ENTRYPOINT ["/bin/bash", "/dumper/backup.sh"]
+ENTRYPOINT ["/bin/bash"]
+
+CMD ["/dumper/backup.sh"]
