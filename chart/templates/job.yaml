@@ -28,10 +28,23 @@ spec:
                 - name: keys
                   mountPath: /keys
                   readOnly: true
+                - name: dumper-scratch
+                - mountPath: /mounted
+
           volumes:
             - name: keys
               secret:
                 secretName: {{ .Values.keySecret }}
+            - name: dumper-scratch
+              ephemeral:
+                volumeClaimTemplate:
+                  spec:
+                    accessModes: [ "ReadWriteOnce" ]
+                    storageClassName: {{ .Values.storage.storageClass }}
+                    resources:
+                      requests:
+                        storage: {{ .Values.storage.size }}
+
           {{- with .Values.nodeSelector }}
           nodeSelector:
             {{- toYaml . | nindent 12 }}
