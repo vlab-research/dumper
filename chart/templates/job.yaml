@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "dumper.fullname" . }}
@@ -29,7 +29,8 @@ spec:
                   mountPath: /keys
                   readOnly: true
                 - name: dumper-scratch
-                - mountPath: /mounted
+                  mountPath: /mounted
+                  readOnly: false
 
           volumes:
             - name: keys
